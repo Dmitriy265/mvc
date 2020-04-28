@@ -20,30 +20,41 @@ if ($path[1] == "") {
 
 } elseif ($path[1] == "products") {
   
-  if (count($path) > 2 and $path[2] == "add") {
-     require_once('controllers/ProductController.php');
-     $controller = new ProductController();
+    require_once('controllers/ProductController.php');
+    $controller = new ProductController();
+    
+    if (count($path) > 2 and $path[2] == "add") {
      
-    if (empty($_POST) ) {
-      $controller->addProduct();
-      exit();
+     
+      if ( empty($_POST) ) {
+        $controller->addProduct();
+        exit();
+      } else {
+        $controller->createProduct($_POST);
+        exit ();
+      }
+      
     } else {
-      $controller->createProduct($_POST);
-      exit ();
-    }
-  } else {
-    echo "Список товаров";
-    exit();
-  }  
+      $controller->productsCatalog();
+      exit();
+    }  
 
 } elseif ($path[1] == "product") {
-  echo "Страничка товара"; 
+  require_once('controllers/ProductController.php');
+  $controller = new ProductController();
+  $controller->productPage($path[2]);
   exit();
   
 } elseif ($path[1] == "cart") {
-  echo "Корзина";  
-  exit();
-  
+    require_once('controllers/ProductController.php');
+    $controller = new ProductController();
+    if (count($path) > 2 and $path[2] == "add") {
+      $controller->addToCart($path[3]);
+      
+    } else {
+      session_start();
+      exit(var_dump($_SESSION['cart']));
+    }
 } else {
   echo "404 not found";  
   exit();

@@ -23,7 +23,7 @@ $content = '
         </div>
          <div class="form-group">
           <label>Картинка
-            <input type="text" class="form-control" name="pictureSourse">
+            <input type="text" class="form-control" name="pictureSource">
           </label>
         </div>
          <div class="form-group">
